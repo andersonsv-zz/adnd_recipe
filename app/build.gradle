@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
+    android {
+        compileOptions {
+            sourceCompatibility 1.8
+            targetCompatibility 1.8
+        }
+    }
     defaultConfig {
         applicationId "br.com.andersonsv.recipe"
         minSdkVersion 15
