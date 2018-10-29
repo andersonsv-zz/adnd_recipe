@@ -54,4 +54,27 @@ public class Recipe implements Parcelable {
         dest.writeString(this.image);
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public Integer getServings() {
+        return servings;
+    }
+
+    public String getImage() {
+        return "".equals(image) ? null : image;
+    }
 }

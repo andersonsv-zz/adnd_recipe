@@ -1,29 +1,72 @@
 package br.com.andersonsv.recipe.activity;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.andersonsv.recipe.R;
+import br.com.andersonsv.recipe.adapter.RecipeRecyclerViewAdapter;
 import br.com.andersonsv.recipe.data.Recipe;
 import br.com.andersonsv.recipe.network.RecipeService;
 import br.com.andersonsv.recipe.network.RetrofitClientInstance;
+import br.com.andersonsv.recipe.util.UiUtils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements RecipeRecyclerViewAdapter.RecipeRecyclerOnClickHandler{
 
     private static final String TAG = MainActivity.class.getName();
+
+    @BindView(R.id.rvRecipe) RecyclerView mRvRecipe;
+
+    private RecipeRecyclerViewAdapter mRecipeAdapter;
+
+    private static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        context = this;
+
+        /*if (!NetworkUtils.isNetworkConnected(this)) {
+            mLlInternetAccessError.setVisibility(View.VISIBLE);
+            mErrorMessageDisplay.setVisibility(View.INVISIBLE);
+
+            Snackbar snackbar = Snackbar.make(movieActivity, R.string.offline_no_internet, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.offline_no_internet_retry, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            loadMovieData(movieSearch);
+                        }
+                    });
+            snackbar.show();
+
+        } else {
+            mLoadingIndicator.setVisibility(View.VISIBLE);
+
+            Bundle bundleForLoader = new Bundle();
+
+            if(movieSearch != null){
+                bundleForLoader.putInt(Intent.EXTRA_KEY_EVENT, movieSearch.ordinal());
+            }
+
+            LoaderManager.LoaderCallbacks<List<Movie>> callback = MovieActivity.this;
+
+            getSupportLoaderManager().restartLoader(MOVIE_LOADER_ID, bundleForLoader, callback);
+        }*/
 
         loadData();
     }
@@ -33,11 +76,23 @@ public class MainActivity extends AppCompatActivity {
 
         Call<ArrayList<Recipe>> call = service.getRecipes();
 
+
         call.enqueue(new Callback<ArrayList<Recipe>>() {
             @Override
             public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response) {
-                Toast.makeText(MainActivity.this, "in response", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "SUCCESS " + response.code());
+                Log.i(TAG, "RESPONSE" + response.body());
+
+                mRecipeAdapter = new RecipeRecyclerViewAdapter(context, response.body(), MainActivity.this);
+
+                //code copied from https://stackoverflow.com/questions/33575731/gridlayoutmanager-how-to-auto-fit-columns
+                int mNoOfColumns = UiUtils.calculateNoOfColumns(getApplicationContext());
+                GridLayoutManager glm = new GridLayoutManager(context, mNoOfColumns);
+
+                mRvRecipe.setLayoutManager(glm);
+                mRvRecipe.setHasFixedSize(true);
+
+                mRvRecipe.setAdapter(mRecipeAdapter);
             }
 
             @Override
@@ -45,5 +100,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "ERROR " + t.getLocalizedMessage());
             }
         });
+    }
+
+    @Override
+    public void onClick(Recipe recipe) {
+
     }
 }
