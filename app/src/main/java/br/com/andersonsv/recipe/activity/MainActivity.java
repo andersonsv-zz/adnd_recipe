@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
     private RecipeRecyclerViewAdapter mRecipeAdapter;
 
-    private static Context context;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
                 //code copied from https://stackoverflow.com/questions/33575731/gridlayoutmanager-how-to-auto-fit-columns
                 int mNoOfColumns = UiUtils.calculateNoOfColumns(getApplicationContext());
-                GridLayoutManager glm = new GridLayoutManager(context, mNoOfColumns);
+                GridLayoutManager glm = new GridLayoutManager(context, 1);
 
                 mRvRecipe.setLayoutManager(glm);
                 mRvRecipe.setHasFixedSize(true);

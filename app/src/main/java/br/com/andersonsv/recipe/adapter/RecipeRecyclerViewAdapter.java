@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import br.com.andersonsv.recipe.R;
+import br.com.andersonsv.recipe.data.ImageRecipe;
 import br.com.andersonsv.recipe.data.Recipe;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,13 +42,11 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Recipe recipe = mData.get(position);
 
-        if(recipe.getImage() == null){
-            holder.mRecipeImage.setImageResource(R.drawable.ic_add_a_photo_black_24dp);
-        }else{
-            Picasso.get()
-                    .load(recipe.getImage())
-                    .into(holder.mRecipeImage);
-        }
+        ImageRecipe imageRecipe = ImageRecipe.getById(recipe.getId());
+
+        Picasso.get()
+                .load(imageRecipe.getImageRecipe())
+                .into(holder.mRecipeImage);
 
         holder.mRecipeName.setText(recipe.getName());
 
