@@ -1,6 +1,8 @@
 package br.com.andersonsv.recipe.activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -102,6 +104,11 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
     @Override
     public void onClick(Recipe recipe) {
+        Class destiny = RecipeActivity.class;
 
+        Intent intent = new Intent(MainActivity.this, destiny);
+        intent.putExtra(Intent.EXTRA_INTENT, recipe);
+
+        startActivity(intent);
     }
 }
