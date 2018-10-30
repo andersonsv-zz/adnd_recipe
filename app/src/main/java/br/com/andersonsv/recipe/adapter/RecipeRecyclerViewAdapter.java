@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
 import br.com.andersonsv.recipe.R;
 import br.com.andersonsv.recipe.data.ImageRecipe;
 import br.com.andersonsv.recipe.data.Recipe;
@@ -20,22 +21,30 @@ import butterknife.ButterKnife;
 
 public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Recipe> mData;
-    private final LayoutInflater mInflater;
+    private List<Recipe> mData;
     private final RecipeRecyclerOnClickHandler mClickHandler;
 
-    public RecipeRecyclerViewAdapter(Context context, List<Recipe> data, RecipeRecyclerOnClickHandler clickHandler) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+    public RecipeRecyclerViewAdapter(RecipeRecyclerOnClickHandler clickHandler) {
         this.mClickHandler = clickHandler;
     }
 
     @Override
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.item_recipe, parent, false);
+        Context context = parent.getContext();
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        View view = layoutInflater.inflate(R.layout.item_recipe, parent, false);
 
         return new ViewHolder(view);
+    }
+
+    public void swapData(List<Recipe> recipes) {
+        this.mData = recipes;
+        notifyDataSetChanged();
+    }
+
+    public List<Recipe> getData() {
+        return mData;
     }
 
     @Override

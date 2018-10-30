@@ -2,9 +2,6 @@ package br.com.andersonsv.recipe.data;
 
 import android.util.SparseArray;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import br.com.andersonsv.recipe.R;
 
 public enum ImageRecipe {
@@ -21,7 +18,7 @@ public enum ImageRecipe {
     static {
 
         for (final ImageRecipe image : values()) {
-            imageById.put(image.ordinal() +1, image);
+            imageById.put(image.ordinal() + 1, image);
         }
     }
 
@@ -29,12 +26,12 @@ public enum ImageRecipe {
         ImageRecipe result = imageById.get(id);
         if (result != null) {
             return result;
-        }else{
+        } else {
             return null;
         }
     }
 
-    ImageRecipe(final int imageRecipe){
+    ImageRecipe(final int imageRecipe) {
         this.imageRecipe = imageRecipe;
     }
 

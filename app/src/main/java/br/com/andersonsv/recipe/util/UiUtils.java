@@ -1,14 +1,25 @@
 package br.com.andersonsv.recipe.util;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
+import android.content.res.Configuration;
+
+import br.com.andersonsv.recipe.R;
 
 public class UiUtils {
 
-    //code copied from https://stackoverflow.com/questions/33575731/gridlayoutmanager-how-to-auto-fit-columns
-    public static int calculateNoOfColumns(Context context) {
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
-        return (int) (dpWidth / 180);
+    private static final int PHONE_POTRAIT_COLUMN = 1;
+    private static final int PHONE_LANDSCAPE_COLUMN = 2;
+    private static final int TABLET_POTRAIT_COLUMN = 2;
+    private static final int TABLET_LANDSCAPE_COLUMN = 3;
+
+    //code copied from https://github.com/gkj/baking-app
+    public static int getColumnForDimension(Context context) {
+        boolean isTablet = context.getResources().getBoolean(R.bool.isTablet);
+        boolean isLandscape = context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        if (isTablet) {
+            return isLandscape ? TABLET_LANDSCAPE_COLUMN : TABLET_POTRAIT_COLUMN;
+        } else {
+            return isLandscape ? PHONE_LANDSCAPE_COLUMN : PHONE_POTRAIT_COLUMN;
+        }
     }
 }

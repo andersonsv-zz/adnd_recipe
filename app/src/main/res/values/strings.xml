@@ -8,5 +8,7 @@
 
     <!-- recipe list -->
     <string name="recipe_image_backdrop">Image for recipe</string>
+    <string name="recipe_detail_ingredient">Ingredients</string>
+    <string name="recipe_detail_step">Steps</string>
 
 </resources>
