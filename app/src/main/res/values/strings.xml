@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Recipe</string>
+
+    <!-- general -->
+    <string name="error_download_data">Error download data</string>
+    <string name="offline_no_internet">Check your internet connection and try again.</string>
+    <string name="retry_download_data">Retry again</string>
+
     <!-- recipe list -->
     <string name="recipe_image_backdrop">Image for recipe</string>
+
 </resources>
