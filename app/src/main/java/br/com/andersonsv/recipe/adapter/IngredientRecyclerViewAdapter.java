@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import br.com.andersonsv.recipe.R;
@@ -42,9 +43,16 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Ingredient ingredient = mData.get(position);
 
-        holder.mQuantity.setText(ingredient.getQuantity().toString());
-        holder.mMeasure.setText(ingredient.getMeasure());
+        holder.mMeasureQuantity.setText(formatMeasureAndQuantity(ingredient));
         holder.mIngredient.setText(ingredient.getIngredient());
+    }
+
+    private String formatMeasureAndQuantity(Ingredient ingredient){
+        DecimalFormat removeZeroRight = new DecimalFormat("#.#");
+
+        String quantity = removeZeroRight.format(ingredient.getQuantity());
+
+        return quantity + ingredient.getMeasure();
     }
 
     @Override
@@ -54,11 +62,8 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tvQuantity)
-        TextView mQuantity;
-
-        @BindView(R.id.tvMeasure)
-        TextView mMeasure;
+        @BindView(R.id.tvMeasureQuantity)
+        TextView mMeasureQuantity;
 
         @BindView(R.id.tvIngredient)
         TextView mIngredient;
