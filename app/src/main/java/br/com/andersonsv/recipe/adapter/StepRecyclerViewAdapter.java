@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.andersonsv.recipe.R;
+import br.com.andersonsv.recipe.data.Recipe;
 import br.com.andersonsv.recipe.data.Step;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,6 +19,16 @@ import butterknife.ButterKnife;
 public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerViewAdapter.ViewHolder> {
 
     private List<Step> mData;
+
+    private final StepRecyclerViewAdapter.StepRecyclerOnClickHandler mClickHandler;
+
+    public StepRecyclerViewAdapter(StepRecyclerViewAdapter.StepRecyclerOnClickHandler clickHandler) {
+        this.mClickHandler = clickHandler;
+    }
+
+    public interface StepRecyclerOnClickHandler {
+        void onClick(Step step);
+    }
 
     @Override
     @NonNull
@@ -53,7 +64,7 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
         return mData != null ? mData.size() : 0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         @BindView(R.id.tvStepNumber)
         TextView mStepNumber;
@@ -64,6 +75,14 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
         ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int adapterPosition = getAdapterPosition();
+            Step step = mData.get(adapterPosition);
+            mClickHandler.onClick(step);
         }
     }
 }

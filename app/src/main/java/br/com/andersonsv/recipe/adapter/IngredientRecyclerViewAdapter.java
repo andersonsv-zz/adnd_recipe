@@ -1,6 +1,7 @@
 package br.com.andersonsv.recipe.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -42,6 +43,12 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Ingredient ingredient = mData.get(position);
+
+        if(position % 2 == 0) {
+            holder.itemView.setBackgroundResource(R.color.colorEven);
+        } else {
+            holder.itemView.setBackgroundResource(R.color.colorOdd);
+        }
 
         holder.mMeasureQuantity.setText(formatMeasureAndQuantity(ingredient));
         holder.mIngredient.setText(ingredient.getIngredient());
