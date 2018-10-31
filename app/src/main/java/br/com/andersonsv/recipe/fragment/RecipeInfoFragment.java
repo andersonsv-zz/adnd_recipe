@@ -41,7 +41,7 @@ public class RecipeInfoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recipe_info, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        configureAdapters(recipe);
+        configureAdapters();
 
         if (recipe != null) {
             ingredientAdapter.swapData(recipe.getIngredients());
@@ -51,7 +51,7 @@ public class RecipeInfoFragment extends Fragment {
         return view;
     }
 
-    private void configureAdapters(Recipe recipe) {
+    private void configureAdapters() {
         mRvIngredient.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRvIngredient.setHasFixedSize(true);
         mRvIngredient.setNestedScrollingEnabled(false);
