@@ -1,8 +1,10 @@
 package br.com.andersonsv.recipe.activity;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class RecipeStepActivity extends AppCompatActivity {
         }
 
         setTitle(recipeName);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void checkIntent(Intent intent){
@@ -46,5 +49,28 @@ public class RecipeStepActivity extends AppCompatActivity {
         if (intent.hasExtra(EXTRA_RECIPE_NAME)){
             recipeName = intent.getStringExtra(EXTRA_RECIPE_NAME);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void insertFragment(int stepIdx) {
+        RecipeStepFragment recipeStepFragment = new RecipeStepFragment();
+        recipeStepFragment.setListIndex(stepIdx);
+        recipeStepFragment.setStep(steps.get(stepIdx));
+        recipeStepFragment.isPrevEnabled(listIndex > 0);
+        recipeStepFragment.isNextEnabled(listIndex < steps.size() - 1);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.step_view, recipeStepFragment)
+                .commit();
     }
 }
