@@ -1,6 +1,7 @@
 package br.com.andersonsv.recipe.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,8 @@ public class RecipeInfoFragment extends Fragment  implements StepRecyclerViewAda
 
     private Unbinder unbinder;
     private Recipe recipe;
+    private static final String RECIPE = "recipe";
+
 
     @BindView(R.id.rvIngredient)
     RecyclerView mRvIngredient;
@@ -32,18 +35,30 @@ public class RecipeInfoFragment extends Fragment  implements StepRecyclerViewAda
     private IngredientRecyclerViewAdapter ingredientAdapter;
     private StepRecyclerViewAdapter stepAdapter;
 
+    private StepClickListener stepClickListener;
+
+
     public RecipeInfoFragment() {
 
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(RECIPE, recipe);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        recipe.getId();
         View view = inflater.inflate(R.layout.fragment_recipe_info, container, false);
         unbinder = ButterKnife.bind(this, view);
 
         configureAdapters();
+
+        if (savedInstanceState != null) {
+            recipe = savedInstanceState.getParcelable(RECIPE);
+        }
 
         if (recipe != null) {
             ingredientAdapter.swapData(recipe.getIngredients());
@@ -72,8 +87,22 @@ public class RecipeInfoFragment extends Fragment  implements StepRecyclerViewAda
         this.recipe = recipe;
     }
 
+
     @Override
-    public void onClick(Step step) {
-        Log.d("","");
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (unbinder != null) {
+            unbinder.unbind();
+            unbinder = null;
+        }
+    }
+
+    @Override
+    public void onClick(int position) {
+        stepClickListener.onStepClicked(position);
+    }
+
+    public interface StepClickListener {
+        void onStepClicked(int position);
     }
 }
