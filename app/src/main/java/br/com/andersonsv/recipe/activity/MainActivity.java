@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE_LIST;
 public class MainActivity extends AppCompatActivity implements RecipeRecyclerViewAdapter.RecipeRecyclerOnClickHandler {
 
     private static final String TAG = MainActivity.class.getName();
@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     private RecipeRecyclerViewAdapter mRecipeAdapter;
 
     private List<Recipe> mRecipeList;
-    private static final String RECIPE_LIST = "recipe_list";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         mRvRecipe.setHasFixedSize(true);
 
         if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey(RECIPE_LIST)) {
-                List<Recipe> recipes = savedInstanceState.getParcelableArrayList(RECIPE_LIST);
+            if (savedInstanceState.containsKey(EXTRA_RECIPE_LIST)) {
+                List<Recipe> recipes = savedInstanceState.getParcelableArrayList(EXTRA_RECIPE_LIST);
                 mRecipeList = recipes;
                 mRecipeAdapter.swapData(recipes);
             }
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mRecipeList != null && !mRecipeList.isEmpty()) {
-            outState.putParcelableArrayList(RECIPE_LIST, new ArrayList<>(mRecipeList));
+            outState.putParcelableArrayList(EXTRA_RECIPE_LIST, new ArrayList<>(mRecipeList));
         }
     }
 

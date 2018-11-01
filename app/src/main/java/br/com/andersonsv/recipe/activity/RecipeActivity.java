@@ -2,6 +2,7 @@ package br.com.andersonsv.recipe.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
@@ -9,13 +10,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import java.util.ArrayList;
+
 import br.com.andersonsv.recipe.R;
+import br.com.andersonsv.recipe.adapter.StepRecyclerViewAdapter;
 import br.com.andersonsv.recipe.data.Recipe;
 import br.com.andersonsv.recipe.fragment.RecipeInfoFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecipeActivity extends AppCompatActivity {
+import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE_INDEX;
+import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE_NAME;
+import static br.com.andersonsv.recipe.util.Extras.EXTRA_STEP_LIST;
+
+public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragment.StepClickListener {
 
     private Recipe recipe;
 
@@ -69,5 +77,14 @@ public class RecipeActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStepClicked(int position) {
+        Intent intent = new Intent(this, RecipeStepActivity.class);
+        intent.putExtra(EXTRA_RECIPE_INDEX, position);
+        intent.putParcelableArrayListExtra(EXTRA_STEP_LIST, new ArrayList<Parcelable>(recipe.getSteps()));
+        intent.putExtra(EXTRA_RECIPE_NAME, recipe.getName());
+        startActivity(intent);
     }
 }

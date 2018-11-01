@@ -1,5 +1,6 @@
 package br.com.andersonsv.recipe.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -18,13 +19,11 @@ import br.com.andersonsv.recipe.data.Step;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
+import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE;
 public class RecipeInfoFragment extends Fragment  implements StepRecyclerViewAdapter.StepRecyclerOnClickHandler{
 
     private Unbinder unbinder;
     private Recipe recipe;
-    private static final String RECIPE = "recipe";
-
 
     @BindView(R.id.rvIngredient)
     RecyclerView mRvIngredient;
@@ -45,7 +44,7 @@ public class RecipeInfoFragment extends Fragment  implements StepRecyclerViewAda
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(RECIPE, recipe);
+        outState.putParcelable(EXTRA_RECIPE, recipe);
     }
 
     @Override
@@ -57,7 +56,7 @@ public class RecipeInfoFragment extends Fragment  implements StepRecyclerViewAda
         configureAdapters();
 
         if (savedInstanceState != null) {
-            recipe = savedInstanceState.getParcelable(RECIPE);
+            recipe = savedInstanceState.getParcelable(EXTRA_RECIPE);
         }
 
         if (recipe != null) {
@@ -104,5 +103,16 @@ public class RecipeInfoFragment extends Fragment  implements StepRecyclerViewAda
 
     public interface StepClickListener {
         void onStepClicked(int position);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            stepClickListener = (StepClickListener) context;
+        }
+        catch (ClassCastException cce) {
+            throw new ClassCastException(context.toString() + " implements interface StepClickListener");
+        }
     }
 }
