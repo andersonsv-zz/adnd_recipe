@@ -37,6 +37,8 @@ public class RecipeStepActivity extends AppCompatActivity {
 
         setTitle(recipeName);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        insertFragment(index);
     }
 
     public void checkIntent(Intent intent){

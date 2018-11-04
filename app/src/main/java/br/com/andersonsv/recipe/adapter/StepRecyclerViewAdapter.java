@@ -53,9 +53,7 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Step step = mData.get(position);
 
-        Integer stepNumber = step.getId() + 1;
-
-        holder.mStepNumber.setText(stepNumber.toString());
+        holder.mStepNumber.setText(step.getStepNumber());
         holder.mShortDescription.setText(step.getShortDescription());
     }
 
