@@ -11,6 +11,7 @@ import java.util.List;
 
 import br.com.andersonsv.recipe.R;
 import br.com.andersonsv.recipe.data.Step;
+import br.com.andersonsv.recipe.fragment.RecipeStepFragment;
 
 import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE_INDEX;
 import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE_NAME;
@@ -21,6 +22,7 @@ public class RecipeStepActivity extends AppCompatActivity {
     private List<Step> steps;
     private String recipeName;
     private int index;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +65,13 @@ public class RecipeStepActivity extends AppCompatActivity {
 
     private void insertFragment(int stepIdx) {
         RecipeStepFragment recipeStepFragment = new RecipeStepFragment();
-        recipeStepFragment.setListIndex(stepIdx);
-        recipeStepFragment.setStep(steps.get(stepIdx));
-        recipeStepFragment.isPrevEnabled(listIndex > 0);
-        recipeStepFragment.isNextEnabled(listIndex < steps.size() - 1);
+        recipeStepFragment.setIndex(stepIdx);
+
+        Step step = steps.get(stepIdx);
+
+        recipeStepFragment.setStep(step);
+        //recipeStepFragment.isPrevEnabled(listIndex > 0);
+        //recipeStepFragment.isNextEnabled(listIndex < steps.size() - 1);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
