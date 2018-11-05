@@ -10,5 +10,8 @@
     <string name="recipe_image_backdrop">Image for recipe</string>
     <string name="recipe_detail_ingredient">Ingredients</string>
     <string name="recipe_detail_step">Steps</string>
+    <string name="step_description">Description</string>
+    <string name="step_previous">Previous</string>
+    <string name="step_next">Next</string>
 
 </resources>

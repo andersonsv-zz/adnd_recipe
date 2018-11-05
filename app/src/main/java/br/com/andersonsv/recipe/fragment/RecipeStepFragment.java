@@ -28,6 +28,8 @@ public class RecipeStepFragment extends Fragment {
     @BindView(R.id.tvStepNumber)
     TextView mStepNumber;
 
+    @BindView(R.id.tvDescription)
+    TextView mDescription;
 
     private Unbinder unbinder;
 
@@ -43,6 +45,7 @@ public class RecipeStepFragment extends Fragment {
 
         mStepNumber.setText(step.getStepNumber());
         mStepName.setText(step.getShortDescription());
+        mDescription.setText(step.getDescription());
 
         return view;
     }
