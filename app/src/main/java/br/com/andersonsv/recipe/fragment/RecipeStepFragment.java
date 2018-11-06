@@ -75,7 +75,8 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
             DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
             DefaultDataSourceFactory defaultDataSourceFactory = new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), "mediaPlayerSample"), bandwidthMeter);
             DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-            ExtractorMediaSource mediaSource = new ExtractorMediaSource(Uri.parse(step.getVideoURL()), defaultDataSourceFactory, extractorsFactory, null, null);
+
+            ExtractorMediaSource mediaSource = new ExtractorMediaSource.Factory(defaultDataSourceFactory).setExtractorsFactory(extractorsFactory).createMediaSource(Uri.parse(step.getVideoURL()));
 
             mPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), new DefaultTrackSelector());
             mPlayer.prepare(mediaSource);
@@ -100,6 +101,12 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
         if (unbinder != null) {
             unbinder.unbind();
             unbinder = null;
+        }
+
+        if(mPlayer != null){
+            mPlayer.setPlayWhenReady(false);
+            mPlayer.release();
+            mPlayer = null;
         }
     }
 
