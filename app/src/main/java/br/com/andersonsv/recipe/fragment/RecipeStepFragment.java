@@ -1,6 +1,7 @@
 package br.com.andersonsv.recipe.fragment;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,13 +12,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.PlaybackPreparer;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.google.android.exoplayer2.ui.PlayerView;
+import com.google.android.exoplayer2.upstream.DataSource;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
+import com.google.android.exoplayer2.util.Util;
+
 import br.com.andersonsv.recipe.R;
 import br.com.andersonsv.recipe.data.Step;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class RecipeStepFragment extends Fragment {
+public class RecipeStepFragment extends Fragment implements PlaybackPreparer, PlayerControlView.VisibilityListener {
 
     private int index;
     private Step step;
@@ -31,7 +49,12 @@ public class RecipeStepFragment extends Fragment {
     @BindView(R.id.tvDescription)
     TextView mDescription;
 
+    @BindView(R.id.exPlayer)
+    PlayerView mExPlayer;
+
     private Unbinder unbinder;
+    SimpleExoPlayer mPlayer;
+
 
     public RecipeStepFragment() {
     }
@@ -46,6 +69,18 @@ public class RecipeStepFragment extends Fragment {
         mStepNumber.setText(step.getStepNumber());
         mStepName.setText(step.getShortDescription());
         mDescription.setText(step.getDescription());
+
+
+        if(step.getVideoURL() != null && !step.getVideoURL().isEmpty()){
+            DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+            DefaultDataSourceFactory defaultDataSourceFactory = new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), "mediaPlayerSample"), bandwidthMeter);
+            DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+            ExtractorMediaSource mediaSource = new ExtractorMediaSource(Uri.parse(step.getVideoURL()), defaultDataSourceFactory, extractorsFactory, null, null);
+
+            mPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), new DefaultTrackSelector());
+            mPlayer.prepare(mediaSource);
+            mExPlayer.setPlayer(mPlayer);
+        }
 
         return view;
     }
@@ -66,5 +101,15 @@ public class RecipeStepFragment extends Fragment {
             unbinder.unbind();
             unbinder = null;
         }
+    }
+
+    @Override
+    public void preparePlayback() {
+
+    }
+
+    @Override
+    public void onVisibilityChange(int visibility) {
+
     }
 }
