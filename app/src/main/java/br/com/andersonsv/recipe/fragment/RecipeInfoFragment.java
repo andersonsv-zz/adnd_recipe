@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,10 @@ import br.com.andersonsv.recipe.R;
 import br.com.andersonsv.recipe.adapter.IngredientRecyclerViewAdapter;
 import br.com.andersonsv.recipe.adapter.StepRecyclerViewAdapter;
 import br.com.andersonsv.recipe.data.Recipe;
-import br.com.andersonsv.recipe.data.Step;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE;
 public class RecipeInfoFragment extends Fragment  implements StepRecyclerViewAdapter.StepRecyclerOnClickHandler{
 

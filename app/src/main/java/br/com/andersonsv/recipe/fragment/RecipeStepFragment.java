@@ -35,6 +35,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE;
+import static br.com.andersonsv.recipe.util.Extras.EXTRA_STEP;
+
 public class RecipeStepFragment extends Fragment implements PlaybackPreparer, PlayerControlView.VisibilityListener {
 
     private int index;
@@ -55,7 +58,6 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
     private Unbinder unbinder;
     SimpleExoPlayer mPlayer;
 
-
     public RecipeStepFragment() {
     }
 
@@ -66,10 +68,13 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
 
         unbinder = ButterKnife.bind(this, view);
 
+        if (savedInstanceState != null) {
+            step = savedInstanceState.getParcelable(EXTRA_STEP);
+        }
+
         mStepNumber.setText(step.getStepNumber());
         mStepName.setText(step.getShortDescription());
         mDescription.setText(step.getDescription());
-
 
         if(step.getVideoURL() != null && !step.getVideoURL().isEmpty()){
             DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
@@ -84,6 +89,12 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
         }
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(EXTRA_STEP, step);
     }
 
     public void setIndex(int index) {
