@@ -19,8 +19,8 @@ import br.com.andersonsv.recipe.fragment.RecipeInfoFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE_INDEX;
 import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE_NAME;
+import static br.com.andersonsv.recipe.util.Extras.EXTRA_STEP_INDEX;
 import static br.com.andersonsv.recipe.util.Extras.EXTRA_STEP_LIST;
 
 public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragment.StepClickListener {
@@ -82,7 +82,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragm
     @Override
     public void onStepClicked(int position) {
         Intent intent = new Intent(this, RecipeStepActivity.class);
-        intent.putExtra(EXTRA_RECIPE_INDEX, position);
+        intent.putExtra(EXTRA_STEP_INDEX, position);
         intent.putParcelableArrayListExtra(EXTRA_STEP_LIST, new ArrayList<Parcelable>(recipe.getSteps()));
         intent.putExtra(EXTRA_RECIPE_NAME, recipe.getName());
         startActivity(intent);
