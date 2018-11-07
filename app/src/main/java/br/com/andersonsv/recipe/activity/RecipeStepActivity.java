@@ -93,8 +93,7 @@ public class RecipeStepActivity extends AppCompatActivity implements StepListene
         Step step = steps.get(stepIdx);
 
         recipeStepFragment.setStep(step);
-        //recipeStepFragment.isPrevEnabled(listIndex > 0);
-        //recipeStepFragment.isNextEnabled(listIndex < steps.size() - 1);
+        recipeStepFragment.setStepCount(steps.size());
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()

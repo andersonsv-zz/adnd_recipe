@@ -10,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -23,6 +25,7 @@ import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import br.com.andersonsv.recipe.R;
 import br.com.andersonsv.recipe.data.Step;
@@ -39,6 +42,8 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
 
     private int index;
     private Step step;
+    private int stepCount;
+
 
     @Nullable
     @BindView(R.id.tvStepName)
@@ -54,6 +59,17 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
 
     @BindView(R.id.exPlayer)
     PlayerView mExPlayer;
+
+    @BindView(R.id.ivStep)
+    ImageView mStepImage;
+
+    @Nullable
+    @BindView(R.id.btnPrevious)
+    Button mPreviousButton;
+
+    @Nullable
+    @BindView(R.id.btnNext)
+    Button mNextButton;
 
     private Unbinder unbinder;
     SimpleExoPlayer mPlayer;
@@ -76,15 +92,40 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
         }
 
         checkUiNulls();
+        checkButtons();
+
 
         if(step.getVideoURL() != null && !step.getVideoURL().isEmpty()){
             loadVideo();
         }else{
             mExPlayer.setVisibility(View.GONE);
 
+
+            if(step.getThumbnailURL() != null && !step.getThumbnailURL().isEmpty()){
+                mStepImage.setVisibility(View.VISIBLE);
+
+                Picasso.get()
+                        .load(step.getThumbnailURL())
+                        .into(mStepImage);
+            }
+
         }
 
         return view;
+    }
+
+    private void checkButtons() {
+        mPreviousButton.setVisibility(View.VISIBLE);
+        mNextButton.setVisibility(View.VISIBLE);
+
+        if(step.getId() == 0){
+            mPreviousButton.setVisibility(View.INVISIBLE);
+        }
+
+        if(step.getId() == stepCount -1){
+            mNextButton.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     private void loadVideo() {
@@ -140,6 +181,10 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
 
     public void setStep(Step step) {
         this.step = step;
+    }
+
+    public void setStepCount(int stepCount) {
+        this.stepCount = stepCount;
     }
 
     @Override

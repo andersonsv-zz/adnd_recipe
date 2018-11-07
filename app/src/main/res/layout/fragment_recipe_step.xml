@@ -83,10 +83,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvDescriptionTitle" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/ivStep"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="gone"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/exPlayer"
                 app:layout_constraintEnd_toEndOf="@+id/exPlayer"
                 app:layout_constraintStart_toStartOf="parent"
