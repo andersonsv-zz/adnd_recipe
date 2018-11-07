@@ -60,6 +60,7 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
     @BindView(R.id.exPlayer)
     PlayerView mExPlayer;
 
+    @Nullable
     @BindView(R.id.ivStep)
     ImageView mStepImage;
 
@@ -94,12 +95,10 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
         checkUiNulls();
         checkButtons();
 
-
         if(step.getVideoURL() != null && !step.getVideoURL().isEmpty()){
             loadVideo();
         }else{
             mExPlayer.setVisibility(View.GONE);
-
 
             if(step.getThumbnailURL() != null && !step.getThumbnailURL().isEmpty()){
                 mStepImage.setVisibility(View.VISIBLE);
@@ -115,15 +114,20 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
     }
 
     private void checkButtons() {
-        mPreviousButton.setVisibility(View.VISIBLE);
-        mNextButton.setVisibility(View.VISIBLE);
+        if(mPreviousButton != null){
+            mPreviousButton.setVisibility(View.VISIBLE);
 
-        if(step.getId() == 0){
-            mPreviousButton.setVisibility(View.INVISIBLE);
+            if(step.getId() == 0){
+                mPreviousButton.setVisibility(View.INVISIBLE);
+            }
         }
 
-        if(step.getId() == stepCount -1){
-            mNextButton.setVisibility(View.INVISIBLE);
+        if(mNextButton != null) {
+            mNextButton.setVisibility(View.VISIBLE);
+
+            if (step.getId() == stepCount - 1) {
+                mNextButton.setVisibility(View.INVISIBLE);
+            }
         }
 
     }
