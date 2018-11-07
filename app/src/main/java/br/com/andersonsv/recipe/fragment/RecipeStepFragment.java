@@ -72,7 +72,7 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
             step = savedInstanceState.getParcelable(EXTRA_STEP);
         }
 
-        mStepNumber.setText(step.getStepNumber());
+        mStepNumber.setText(step.getId());
         mStepName.setText(step.getShortDescription());
         mDescription.setText(step.getDescription());
 
