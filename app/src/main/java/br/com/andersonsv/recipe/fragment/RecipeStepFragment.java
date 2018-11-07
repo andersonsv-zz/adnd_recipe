@@ -43,12 +43,15 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
     private int index;
     private Step step;
 
+    @Nullable
     @BindView(R.id.tvStepName)
     TextView mStepName;
 
+    @Nullable
     @BindView(R.id.tvStepNumber)
     TextView mStepNumber;
 
+    @Nullable
     @BindView(R.id.tvDescription)
     TextView mDescription;
 
@@ -72,10 +75,13 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
             step = savedInstanceState.getParcelable(EXTRA_STEP);
         }
 
-        mStepNumber.setText(step.getId());
-        mStepName.setText(step.getShortDescription());
-        mDescription.setText(step.getDescription());
+        checkUiNulls();
+        loadVideo();
 
+        return view;
+    }
+
+    private void loadVideo() {
         if(step.getVideoURL() != null && !step.getVideoURL().isEmpty()){
             DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
             DefaultDataSourceFactory defaultDataSourceFactory = new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), "mediaPlayerSample"), bandwidthMeter);
@@ -87,8 +93,20 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
             mPlayer.prepare(mediaSource);
             mExPlayer.setPlayer(mPlayer);
         }
+    }
 
-        return view;
+    private void checkUiNulls() {
+        if(mStepNumber != null){
+            mStepNumber.setText(step.getId().toString());
+        }
+
+        if(mStepName != null){
+            mStepName.setText(step.getShortDescription());
+        }
+
+        if(mDescription != null){
+            mDescription.setText(step.getDescription());
+        }
     }
 
     @Override
