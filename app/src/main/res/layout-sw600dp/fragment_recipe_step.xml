@@ -19,6 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.48" />
+
             <TextView
                 android:id="@+id/tvStepNumber"
                 style="@style/Step.50"
@@ -38,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 app:layout_constraintBottom_toBottomOf="@+id/tvStepNumber"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvStepNumber"
@@ -48,12 +55,14 @@
             <com.google.android.exoplayer2.ui.PlayerView
                 android:id="@+id/exPlayer"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/step_video_height"
+                android:layout_height="0dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvStepNumber" />
@@ -64,12 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
                 android:text="@string/step_description"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textStyle="bold"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/exPlayer" />
+                app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
             <TextView
                 android:id="@+id/tvDescription"
@@ -80,8 +87,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.445"
                 app:layout_constraintStart_toStartOf="parent"
@@ -91,9 +97,10 @@
                 android:id="@+id/ivStep"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
                 android:contentDescription="@string/recipe_step_cd_image"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/exPlayer"
+                app:layout_constraintBottom_toTopOf="@+id/guideline5"
                 app:layout_constraintEnd_toEndOf="@+id/exPlayer"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvStepNumber"

@@ -41,12 +41,11 @@ public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragm
 
         if (extras != null) {
             recipe = extras.getParcelable(Intent.EXTRA_INTENT);
-
             setTitle(recipe.getName());
         }
 
-        if(intent != null){
-            checkIntent(intent);
+        if(savedInstanceState != null){
+            checkSaveState(savedInstanceState);
         }
 
         if (getSupportActionBar() != null) {
@@ -67,12 +66,12 @@ public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragm
         }
     }
 
-    public void checkIntent(Intent intent){
-        if (intent.hasExtra(EXTRA_STEP_INDEX)){
-            index = intent.getIntExtra(EXTRA_STEP_INDEX, -1);
+    public void checkSaveState(Bundle savedInstanceState){
+        if (savedInstanceState.containsKey(EXTRA_STEP_INDEX)) {
+            index = savedInstanceState.getInt(EXTRA_STEP_INDEX);
         }
-        if (intent.hasExtra(EXTRA_RECIPE)){
-            recipe = intent.getParcelableExtra(EXTRA_RECIPE);
+        if (savedInstanceState.containsKey(EXTRA_RECIPE)){
+            recipe = savedInstanceState.getParcelable(EXTRA_RECIPE);
         }
     }
 
