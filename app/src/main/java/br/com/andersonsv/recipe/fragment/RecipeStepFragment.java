@@ -96,21 +96,30 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
         checkButtons();
 
         if(step.getVideoURL() != null && !step.getVideoURL().isEmpty()){
-            loadVideo();
+            loadVideo(step.getVideoURL());
         }else{
-            mExPlayer.setVisibility(View.GONE);
-
-            if(step.getThumbnailURL() != null && !step.getThumbnailURL().isEmpty()){
-                mStepImage.setVisibility(View.VISIBLE);
-
-                Picasso.get()
-                        .load(step.getThumbnailURL())
-                        .into(mStepImage);
-            }
-
+            loadImage(step.getThumbnailURL());
         }
 
         return view;
+    }
+
+    private void loadImage(String imageUrl) {
+        if(step.getThumbnailURL() != null
+                && !step.getThumbnailURL().isEmpty()){
+
+            if(imageUrl.contains(".mp4")){
+                loadVideo(imageUrl);
+                return;
+            }else{
+                mExPlayer.setVisibility(View.GONE);
+                mStepImage.setVisibility(View.VISIBLE);
+
+                Picasso.get()
+                        .load(imageUrl)
+                        .into(mStepImage);
+            }
+        }
     }
 
     private void checkButtons() {
@@ -132,13 +141,13 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
 
     }
 
-    private void loadVideo() {
+    private void loadVideo(String videoUrl) {
         if(mPlayer == null){
             DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
             DefaultDataSourceFactory defaultDataSourceFactory = new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), "mediaPlayerSample"), bandwidthMeter);
             DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
-            ExtractorMediaSource mediaSource = new ExtractorMediaSource.Factory(defaultDataSourceFactory).setExtractorsFactory(extractorsFactory).createMediaSource(Uri.parse(step.getVideoURL()));
+            ExtractorMediaSource mediaSource = new ExtractorMediaSource.Factory(defaultDataSourceFactory).setExtractorsFactory(extractorsFactory).createMediaSource(Uri.parse(videoUrl));
 
             mPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), new DefaultTrackSelector());
             mPlayer.prepare(mediaSource);
