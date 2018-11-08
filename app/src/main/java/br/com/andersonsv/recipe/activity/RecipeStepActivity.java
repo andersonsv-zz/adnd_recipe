@@ -1,10 +1,9 @@
 package br.com.andersonsv.recipe.activity;
 
 import android.content.Intent;
-import android.os.Parcelable;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
