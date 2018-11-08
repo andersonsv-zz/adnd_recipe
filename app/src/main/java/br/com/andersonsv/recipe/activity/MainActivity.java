@@ -2,8 +2,12 @@ package br.com.andersonsv.recipe.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +24,7 @@ import br.com.andersonsv.recipe.data.Recipe;
 import br.com.andersonsv.recipe.network.RecipeService;
 import br.com.andersonsv.recipe.network.RetrofitClientInstance;
 import br.com.andersonsv.recipe.util.NetworkUtils;
+import br.com.andersonsv.recipe.util.SimpleIdlingResource;
 import br.com.andersonsv.recipe.util.UiUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +46,18 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     private RecipeRecyclerViewAdapter mRecipeAdapter;
 
     private List<Recipe> mRecipeList;
+
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
