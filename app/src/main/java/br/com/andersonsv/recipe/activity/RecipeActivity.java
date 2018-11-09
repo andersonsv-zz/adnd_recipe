@@ -67,7 +67,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragm
         }
     }
 
-    public void checkSaveState(Bundle savedInstanceState){
+    private void checkSaveState(Bundle savedInstanceState){
         if (savedInstanceState.containsKey(EXTRA_STEP_INDEX)) {
             index = savedInstanceState.getInt(EXTRA_STEP_INDEX);
         }

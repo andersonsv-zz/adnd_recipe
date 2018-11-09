@@ -130,12 +130,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
     private void createSnackbarToReload(int textResource) {
         Snackbar snackbar = Snackbar.make(mMainContext, textResource, Snackbar.LENGTH_INDEFINITE)
-                .setAction(R.string.retry_download_data, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        loadData();
-                    }
-                });
+                .setAction(R.string.retry_download_data, view -> loadData());
         snackbar.show();
     }
 

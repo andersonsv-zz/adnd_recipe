@@ -9,9 +9,6 @@ public class Ingredient implements Parcelable {
     private String measure;
     private String ingredient;
 
-    public Ingredient() {
-    }
-
     private Ingredient(Parcel in) {
         this.quantity = (Double) in.readValue(Double.class.getClassLoader());
         this.measure = in.readString();

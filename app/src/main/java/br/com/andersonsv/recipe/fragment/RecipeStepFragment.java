@@ -112,6 +112,8 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
                 loadVideo(imageUrl);
             }else{
                 mExPlayer.setVisibility(View.GONE);
+
+                if(mStepImage != null)
                 mStepImage.setVisibility(View.VISIBLE);
 
                 Picasso.get()
@@ -142,13 +144,16 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
 
     private void loadVideo(String videoUrl) {
         if(mPlayer == null){
+
+            Context context = getContext() != null ? getContext() : getActivity();
+
             DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-            DefaultDataSourceFactory defaultDataSourceFactory = new DefaultDataSourceFactory(getContext(), Util.getUserAgent(getContext(), "mediaPlayerSample"), bandwidthMeter);
+            DefaultDataSourceFactory defaultDataSourceFactory = new DefaultDataSourceFactory(context, Util.getUserAgent(context, "mediaPlayerSample"), bandwidthMeter);
             DefaultExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
             ExtractorMediaSource mediaSource = new ExtractorMediaSource.Factory(defaultDataSourceFactory).setExtractorsFactory(extractorsFactory).createMediaSource(Uri.parse(videoUrl));
 
-            mPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), new DefaultTrackSelector());
+            mPlayer = ExoPlayerFactory.newSimpleInstance(context, new DefaultTrackSelector());
             mPlayer.prepare(mediaSource);
             mExPlayer.setPlayer(mPlayer);
 
