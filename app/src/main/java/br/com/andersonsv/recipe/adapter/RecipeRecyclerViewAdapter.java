@@ -53,12 +53,12 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
         ImageRecipe imageRecipe = ImageRecipe.getById(recipe.getId());
 
-        Picasso.get()
-                .load(imageRecipe.getImageRecipe())
-                .into(holder.mRecipeImage);
-
+        if(imageRecipe != null && imageRecipe.getImageRecipe() != 0){
+            Picasso.get()
+                    .load(imageRecipe.getImageRecipe())
+                    .into(holder.mRecipeImage);
+        }
         holder.mRecipeName.setText(recipe.getName());
-
     }
 
     @Override

@@ -49,11 +49,13 @@ public class RecipeStepActivity extends AppCompatActivity implements StepListene
         }
 
         setTitle(recipeName);
+
+        if(getSupportActionBar() != null)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
-    public void checkIntent(Intent intent){
+    private void checkIntent(Intent intent){
         if (intent.hasExtra(EXTRA_STEP_INDEX)){
             index = intent.getIntExtra(EXTRA_STEP_INDEX, -1);
         }

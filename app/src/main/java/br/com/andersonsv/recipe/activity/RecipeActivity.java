@@ -41,6 +41,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragm
 
         if (extras != null) {
             recipe = extras.getParcelable(Intent.EXTRA_INTENT);
+            if(recipe != null && recipe.getName() != null)
             setTitle(recipe.getName());
         }
 
@@ -98,11 +99,11 @@ public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragm
         switch (id) {
             case android.R.id.home:
                 Intent upIntent = NavUtils.getParentActivityIntent(this);
-                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                if (upIntent != null && NavUtils.shouldUpRecreateTask(this, upIntent)) {
                     TaskStackBuilder.create(this)
                             .addNextIntentWithParentStack(upIntent)
                             .startActivities();
-                } else {
+                } else if (upIntent != null){
                     NavUtils.navigateUpTo(this, upIntent);
                 }
                 return true;

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.andersonsv.recipe.R;
-import br.com.andersonsv.recipe.data.Recipe;
 import br.com.andersonsv.recipe.data.Step;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +52,7 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Step step = mData.get(position);
 
-        holder.mStepNumber.setText(step.getId().toString());
+        holder.mStepNumber.setText(String.format("%s",step.getId()));
         holder.mShortDescription.setText(step.getShortDescription());
     }
 

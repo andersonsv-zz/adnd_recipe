@@ -47,7 +47,7 @@ public class RecipeInfoFragment extends Fragment  implements StepRecyclerViewAda
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_recipe_info, container, false);
         unbinder = ButterKnife.bind(this, view);

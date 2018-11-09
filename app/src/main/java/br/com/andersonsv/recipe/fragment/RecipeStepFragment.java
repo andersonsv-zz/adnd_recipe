@@ -110,7 +110,6 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
 
             if(imageUrl.contains(".mp4")){
                 loadVideo(imageUrl);
-                return;
             }else{
                 mExPlayer.setVisibility(View.GONE);
                 mStepImage.setVisibility(View.VISIBLE);
@@ -158,7 +157,7 @@ public class RecipeStepFragment extends Fragment implements PlaybackPreparer, Pl
 
     private void checkUiNulls() {
         if(mStepNumber != null){
-            mStepNumber.setText(step.getId().toString());
+            mStepNumber.setText(String.format("%s",step.getId()));
         }
 
         if(mStepName != null){

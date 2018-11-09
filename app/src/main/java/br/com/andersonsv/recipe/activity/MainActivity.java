@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
 
         call.enqueue(new Callback<ArrayList<Recipe>>() {
             @Override
-            public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response) {
+            public void onResponse(@NonNull Call<ArrayList<Recipe>> call, @NonNull Response<ArrayList<Recipe>> response) {
                 Log.i(TAG, "SUCCESS " + response.code());
                 Log.i(TAG, "RESPONSE" + response.body());
 
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Recipe>> call, Throwable t) {
+            public void onFailure(@NonNull Call<ArrayList<Recipe>> call, @NonNull Throwable t) {
                 mLoading.setVisibility(View.INVISIBLE);
                 createSnackbarToReload(R.string.error_download_data);
                 Log.e(TAG, "ERROR " + t.getLocalizedMessage());
