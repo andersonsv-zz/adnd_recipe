@@ -11,7 +11,7 @@ public class SimpleIdlingResource implements IdlingResource {
     @Nullable
     private volatile ResourceCallback mCallback;
 
-    private AtomicBoolean mIsIdleNow = new AtomicBoolean(true);
+    private final AtomicBoolean mIsIdleNow = new AtomicBoolean(true);
 
     @Override
     public String getName() {
@@ -26,5 +26,13 @@ public class SimpleIdlingResource implements IdlingResource {
     @Override
     public void registerIdleTransitionCallback(ResourceCallback callback) {
         mCallback = callback;
+    }
+
+    public void setIdleState(boolean isIdleNow) {
+        mIsIdleNow.set(isIdleNow);
+        ResourceCallback callback = this.mCallback;
+        if (isIdleNow && callback != null) {
+            callback.onTransitionToIdle();
+        }
     }
 }
