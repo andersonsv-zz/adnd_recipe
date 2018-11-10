@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recipe</string>
+    <string name="app_name">Baking</string>
 
     <!-- general -->
     <string name="error_download_data">Error download data</string>
@@ -14,5 +14,12 @@
     <string name="step_previous">Previous</string>
     <string name="step_next">Next</string>
     <string name="recipe_step_cd_image">Image for step</string>
+
+    <string name="widget_no_recipe_selected">No recipe selected yet</string>
+    <string name="widget_item_format">%1$d. %2$s, %3$s %4$s</string>
+    <string name="widget_intent_action" translatable="false">android.appwidget.action.APPWIDGET_UPDATE</string>
+    <string name="widget_recipe_ingredients">Recipe ingredients</string>
+    <string name="recipe_tag" translatable="false">recipe</string>
+
 
 </resources>

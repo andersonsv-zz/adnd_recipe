@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="step_video_height">200dp</dimen>
+    <dimen name="widget_padding_all">8dp</dimen>
+    <dimen name="margin_default">8dp</dimen>
 </resources>

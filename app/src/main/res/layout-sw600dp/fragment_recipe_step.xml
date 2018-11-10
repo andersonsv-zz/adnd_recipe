@@ -29,13 +29,9 @@
             <TextView
                 android:id="@+id/tvStepNumber"
                 style="@style/Step.50"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -15,6 +15,7 @@ import br.com.andersonsv.recipe.data.Recipe;
 import br.com.andersonsv.recipe.fragment.RecipeInfoFragment;
 import br.com.andersonsv.recipe.fragment.RecipeStepFragment;
 import br.com.andersonsv.recipe.ui.StepListener;
+import br.com.andersonsv.recipe.widget.IngredientWidgetProvider;
 import butterknife.ButterKnife;
 
 import static br.com.andersonsv.recipe.util.Extras.EXTRA_RECIPE;
@@ -43,6 +44,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragm
             recipe = extras.getParcelable(Intent.EXTRA_INTENT);
             if(recipe != null && recipe.getName() != null)
             setTitle(recipe.getName());
+            sendRecipeToWidget();
         }
 
         if(savedInstanceState != null){
@@ -65,6 +67,13 @@ public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragm
             insertStepFragment(index);
 
         }
+    }
+
+    private void sendRecipeToWidget() {
+        Intent intent = new Intent(this, IngredientWidgetProvider.class);
+        intent.putExtra(EXTRA_RECIPE, recipe);
+        intent.setAction(getString(R.string.widget_intent_action));
+        sendBroadcast(intent);
     }
 
     private void checkSaveState(Bundle savedInstanceState){
