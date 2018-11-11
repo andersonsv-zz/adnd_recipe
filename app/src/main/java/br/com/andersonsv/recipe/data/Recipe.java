@@ -38,6 +38,25 @@ public class Recipe implements Parcelable {
         }
     };
 
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     @Override
     public int describeContents() {

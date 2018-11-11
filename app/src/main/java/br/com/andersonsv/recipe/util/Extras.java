@@ -9,6 +9,5 @@ public class Extras {
     public static final String EXTRA_RECIPE_NAME = "recipe_name";
     public static final String EXTRA_STEP_INDEX = "step_index";
     public static final String EXTRA_STEP_PREV_ENABLED = "extra_step_prev_enabled";
-    public static final String EXTRA_STEP_NEXT_ENABLED = "extra_step_next_enabled";
 
 }
