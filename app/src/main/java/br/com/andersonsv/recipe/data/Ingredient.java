@@ -15,6 +15,9 @@ public class Ingredient implements Parcelable {
         this.ingredient = in.readString();
     }
 
+    public Ingredient() {
+    }
+
     public static final Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
         @Override
         public Ingredient createFromParcel(Parcel source) {
@@ -49,5 +52,17 @@ public class Ingredient implements Parcelable {
 
     public String getIngredient() {
         return ingredient;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setMeasure(String measure) {
+        this.measure = measure;
+    }
+
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
     }
 }

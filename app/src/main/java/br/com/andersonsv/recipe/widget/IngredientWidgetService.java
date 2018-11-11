@@ -55,6 +55,7 @@ public class IngredientWidgetService extends RemoteViewsService {
             int position = index + 1;
             String widgetItem = String.format(getString(R.string.widget_item_format), position,
                     ingredient.getIngredient(), Double.toString(ingredient.getQuantity()), ingredient.getMeasure());
+
             views.setTextViewText(R.id.tvIngredientItem, widgetItem);
             return views;
         }

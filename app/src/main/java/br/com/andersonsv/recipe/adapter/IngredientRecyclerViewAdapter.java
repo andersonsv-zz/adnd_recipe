@@ -35,9 +35,6 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
         notifyDataSetChanged();
     }
 
-    public List<Ingredient> getData() {
-        return mData;
-    }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
