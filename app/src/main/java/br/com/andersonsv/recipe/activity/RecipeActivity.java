@@ -44,7 +44,7 @@ public class RecipeActivity extends AppCompatActivity implements RecipeInfoFragm
             recipe = extras.getParcelable(Intent.EXTRA_INTENT);
             if(recipe != null && recipe.getName() != null)
             setTitle(recipe.getName());
-           // sendRecipeToWidget();
+            sendRecipeToWidget();
         }
 
         if(savedInstanceState != null){

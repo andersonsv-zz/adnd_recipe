@@ -44,10 +44,6 @@ public class StepRecyclerViewAdapter extends RecyclerView.Adapter<StepRecyclerVi
         notifyDataSetChanged();
     }
 
-    public List<Step> getData() {
-        return mData;
-    }
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Step step = mData.get(position);

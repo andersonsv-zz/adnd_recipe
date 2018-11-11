@@ -34,7 +34,6 @@ public class RecipeActivityTest {
 
     private final String RECIPE_INTRODUCTION = "Recipe introduction";
 
-
     @Rule
     public ActivityTestRule<RecipeActivity> mActivityRule =
             new ActivityTestRule<RecipeActivity>(RecipeActivity.class) {

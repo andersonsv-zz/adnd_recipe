@@ -89,11 +89,4 @@ public class Recipe implements Parcelable {
         return steps;
     }
 
-    public Integer getServings() {
-        return servings;
-    }
-
-    public String getImage() {
-        return "".equals(image) ? null : image;
-    }
 }

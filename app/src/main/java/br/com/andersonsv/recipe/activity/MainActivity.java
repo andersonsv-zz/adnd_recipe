@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        getIdlingResource();
+
         mRecipeAdapter = new RecipeRecyclerViewAdapter(this);
         mRvRecipe.setAdapter(mRecipeAdapter);
 
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
     }
 
     private void loadData() {
-
+        mIdlingResource.setIdleState(false);
         RecipeService service = RetrofitClientInstance.getRetrofitInstance().create(RecipeService.class);
 
         Call<ArrayList<Recipe>> call = service.getRecipes();
@@ -116,12 +118,14 @@ public class MainActivity extends AppCompatActivity implements RecipeRecyclerVie
                 mRecipeAdapter.swapData(response.body());
                 mRecipeList = mRecipeAdapter.getData();
 
+                mIdlingResource.setIdleState(true);
                 mLoading.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(@NonNull Call<ArrayList<Recipe>> call, @NonNull Throwable t) {
                 mLoading.setVisibility(View.INVISIBLE);
+                mIdlingResource.setIdleState(true);
                 createSnackbarToReload(R.string.error_download_data);
                 Log.e(TAG, "ERROR " + t.getLocalizedMessage());
             }
